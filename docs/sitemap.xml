@@ -2,11 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>test/index.html</loc>
-    <lastmod>2023-12-04T03:42:28.697Z</lastmod>
+    <lastmod>2023-12-04T05:59:03.433Z</lastmod>
   </url>
   <url>
     <loc>test/intro.html</loc>
-    <lastmod>2023-12-04T03:44:13.184Z</lastmod>
+    <lastmod>2023-12-04T07:00:38.740Z</lastmod>
   </url>
   <url>
     <loc>test/summary.html</loc>
@@ -22,14 +22,22 @@
   </url>
   <url>
     <loc>test/datawork_basic.html</loc>
-    <lastmod>2023-12-04T03:44:10.308Z</lastmod>
+    <lastmod>2023-12-04T07:00:52.727Z</lastmod>
   </url>
   <url>
     <loc>test/tutorialdata.html</loc>
-    <lastmod>2023-12-04T03:44:11.932Z</lastmod>
+    <lastmod>2023-12-04T07:00:40.583Z</lastmod>
   </url>
   <url>
     <loc>test/projections.html</loc>
-    <lastmod>2023-12-04T03:44:05.849Z</lastmod>
+    <lastmod>2023-12-04T07:00:55.513Z</lastmod>
+  </url>
+  <url>
+    <loc>test/datawork_multilayer.html</loc>
+    <lastmod>2023-12-04T07:01:00.749Z</lastmod>
+  </url>
+  <url>
+    <loc>test/cartography.html</loc>
+    <lastmod>2023-12-04T07:01:03.332Z</lastmod>
   </url>
 </urlset>

@@ -137,6 +137,18 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Coordinate Reference Systems</span></span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./datawork_multilayer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Working with Multiple Datasets Together</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cartography.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Making Maps</span></span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -147,7 +159,7 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#download-and-install" id="toc-download-and-install" class="nav-link active" data-scroll-target="#download-and-install"><span class="header-section-number">1.1</span> Download and Install</a>
+  <li><a href="#download-and-install-qgis" id="toc-download-and-install-qgis" class="nav-link active" data-scroll-target="#download-and-install-qgis"><span class="header-section-number">1.1</span> Download and Install QGIS</a>
   <ul class="collapse">
   <li><a href="#available-versions" id="toc-available-versions" class="nav-link" data-scroll-target="#available-versions"><span class="header-section-number">1.1.1</span> Available Versions</a></li>
   </ul></li>
@@ -182,8 +194,8 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<section id="download-and-install" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="download-and-install"><span class="header-section-number">1.1</span> Download and Install</h2>
+<section id="download-and-install-qgis" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="download-and-install-qgis"><span class="header-section-number">1.1</span> Download and Install QGIS</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><a href="https://www.qgis.org/en/site/forusers/download.html" title="QGIS Download Page on Windows"><img src="./images/download_page.png" class="img-fluid figure-img"></a></p>
@@ -227,7 +239,7 @@ ul.task-list li input[type="checkbox"] {
 <li>Value Tool</li>
 <li>QuickMapServices</li>
 </ul>
-<p>To install the plugins, you can you can click the “Install Plugin” button that will appear when you select plugins from the list. Once plugins are instlalled, you can use the checkboxes that appear alongside those to enable or disable them; as plugins are installed, some may result in a new window being shown automatically, or a new “panel” available from the <code>View</code> menu; some may result in new icons appearing in the toolbar, a new menu being available at the top of the QGIS window.</p>
+<p>To install the plugins, you can you can click the “Install Plugin” button that will appear when you select plugins from the list. Once plugins are installed, you can use the checkboxes that appear alongside those to enable or disable them; as plugins are installed, some may result in a new window being shown automatically, or a new “panel” available from the <code>View</code> menu; some may result in new icons appearing in the toolbar, a new menu being available at the top of the QGIS window.</p>
 </section>
 </section>
 <section id="basic-navigation-in-qgis" class="level2" data-number="1.3">
@@ -239,7 +251,7 @@ ul.task-list li input[type="checkbox"] {
 <figcaption class="figure-caption">First Look at the main QGIS Window (after Value Tool and QuickMapServices plugins have been installed)</figcaption>
 </figure>
 </div>
-<p>The labeled “sub-windows” you see, such as for the <em>Browser</em>, <em>Layers</em>, <em>Value Tool</em> and so forth are referred to as panels and the rows of icons across the top are toolbars. You can adjust what you are seeing in terms of panels and toolbars by going to the <code>View</code> menu a the top of the QGIS window, and selecting <code>Panels</code> or <code>Toolbars</code> appropriately (right-clicking on the toolbar also lets you see and turn on/off the panels and toolbars). Some icons may seem fairly intutive, such as to zoom in (<img src="https://raw.githubusercontent.com/qgis/QGIS/728e5967df5e34ab59657492921f638b138e5080/images/themes/default/mActionZoomIn.svg" class="img-fluid">) or zoom out (<img src="https://raw.githubusercontent.com/qgis/QGIS/728e5967df5e34ab59657492921f638b138e5080/images/themes/default/mActionZoomOut.svg" class="img-fluid">), but others may not be, so explore and don’t be afraid to try things out! It’s generally helpful to do this with smaller datasets loaded into QGIS to help iterate through the different tools and options more quickly.</p>
+<p>The labeled “sub-windows” you see, such as for the <em>Browser</em>, <em>Layers</em>, <em>Value Tool</em> and so forth are referred to as panels and the rows of icons across the top are toolbars. You can adjust what you are seeing in terms of panels and toolbars by going to the <code>View</code> menu a the top of the QGIS window, and selecting <code>Panels</code> or <code>Toolbars</code> appropriately (right-clicking on the toolbar also lets you see and turn on/off the panels and toolbars). Some icons may seem fairly intuitive, such as to zoom in (<img src="https://raw.githubusercontent.com/qgis/QGIS/728e5967df5e34ab59657492921f638b138e5080/images/themes/default/mActionZoomIn.svg" class="img-fluid">) or zoom out (<img src="https://raw.githubusercontent.com/qgis/QGIS/728e5967df5e34ab59657492921f638b138e5080/images/themes/default/mActionZoomOut.svg" class="img-fluid">), but others may not be, so explore and don’t be afraid to try things out! It’s generally helpful to do this with smaller datasets loaded into QGIS to help iterate through the different tools and options more quickly.</p>
 <p><strong><em>I strongly encourage users to explore QGIS to familiarize themselves a bit with the software - hover your mouse over icons to see what they say, click on menu items at the top and browse around, selecting through some different menus and such. QGIS is rich in functionality, with multiple ways to do many things, so this can help you figure out what the easiest ways are for you to approach workflows.</em></strong></p>
 <section id="some-initial-setup" class="level3" data-number="1.3.1">
 <h3 data-number="1.3.1" class="anchored" data-anchor-id="some-initial-setup"><span class="header-section-number">1.3.1</span> Some initial setup</h3>

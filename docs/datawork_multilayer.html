@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>An Introduction to GIS Using QGIS (version 3.34) and NYC Data - 5&nbsp; Working with Multiple Datasets Together</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./cartography.html" rel="next">
+<link href="./projections.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./datawork_multilayer.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Working with Multiple Datasets Together</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">An Introduction to GIS Using QGIS (version 3.34) and NYC Data</a> 
+        <div class="sidebar-tools-main">
+    <a href="./test" rel="" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-git"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Before you get started</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Installing QGIS and Plugins</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tutorialdata.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Tutorial Data</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./datawork_basic.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Loading and Visualizing Data</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./projections.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Coordinate Reference Systems</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./datawork_multilayer.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Working with Multiple Datasets Together</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cartography.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Making Maps</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#tabular-joins" id="toc-tabular-joins" class="nav-link active" data-scroll-target="#tabular-joins"><span class="header-section-number">5.1</span> Tabular Joins</a>
+  <ul class="collapse">
+  <li><a href="#saving-tabular-join-results" id="toc-saving-tabular-join-results" class="nav-link" data-scroll-target="#saving-tabular-join-results"><span class="header-section-number">5.1.1</span> Saving Tabular Join Results</a></li>
+  <li><a href="#try-it-yourself" id="toc-try-it-yourself" class="nav-link" data-scroll-target="#try-it-yourself"><span class="header-section-number">5.1.2</span> Try it yourself!</a></li>
+  </ul></li>
+  <li><a href="#spatial-joins" id="toc-spatial-joins" class="nav-link" data-scroll-target="#spatial-joins"><span class="header-section-number">5.2</span> Spatial Joins</a>
+  <ul class="collapse">
+  <li><a href="#associating-broader-data-with-local-data" id="toc-associating-broader-data-with-local-data" class="nav-link" data-scroll-target="#associating-broader-data-with-local-data"><span class="header-section-number">5.2.1</span> Associating Broader data with Local Data</a></li>
+  <li><a href="#summarizing-local-data-to-larger-areas" id="toc-summarizing-local-data-to-larger-areas" class="nav-link" data-scroll-target="#summarizing-local-data-to-larger-areas"><span class="header-section-number">5.2.2</span> Summarizing Local data to Larger Areas</a></li>
+  </ul></li>
+  <li><a href="#raster-polygon-overlays" id="toc-raster-polygon-overlays" class="nav-link" data-scroll-target="#raster-polygon-overlays"><span class="header-section-number">5.3</span> Raster-Polygon Overlays</a></li>
+  <li><a href="#clipping" id="toc-clipping" class="nav-link" data-scroll-target="#clipping"><span class="header-section-number">5.4</span> Clipping</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-git"></i></div><div class="action-links"><p><a href="test/edit/main/datawork_multilayer.qmd" class="toc-action">Edit this page</a></p><p><a href="test/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Working with Multiple Datasets Together</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p>The world of spatial data operations is vast! Some examples of working with multiple data layers or tables are included here as examples. In some cases, adjustments could be made in the workflows shown based on different needs or preferences. And there are countless other operations that could be done with the tutorial datasets alone.</p>
+<p>As you work through the below processes, take some time to re-style applicable datasets to see what the results look like, and think about potential implications in terms of the distribution of things like green roofs, and vegetation more broadly, in New York City.</p>
+<section id="tabular-joins" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="tabular-joins"><span class="header-section-number">5.1</span> Tabular Joins</h2>
+<p>In many cases data are made available for common administrative or political geographic units. For example, in the United States, data are often made available by units such as, from larger units to (generally) smaller, State, County, City, Census Tracts. In New York City, a number of datasets are released at the scale of <a href="https://www.nyc.gov/site/planning/community/community-portal.page">Community Districts</a>; each Community District has a Board that weights in on a variety of types of issues, and serves as a space for broader public engagement from the associated geographic area.</p>
+<p>Community District boundaries for New York City, made available by the Department of City Planning, are one of the datasets shared with this tutorial. Both the Heat Vulnerability Index data, which is a non-spatial data table, and the Tree Canopy and Street Tree Summary data with the tutorial data are available for Community Districts. Thus, we should be able to associate data from these different datasets together, or “join” them based on the unique identifier for each Community District. In this case, because the Community District Boundaries as made available from the NYC Department of City Planning are the simplest, in that they primarily have the spatial polygon data and the Community District identifiers, we will join these other datasets to it. In the working project for this demo, the layer name for the Community District Boundaries is “nycd_23d/nycd.shp” (the default name from dragging and dropping the <code>.zip</code> folder with the data into QGIS). Before going through the below steps, I have looked at the attribute tables to find that:</p>
+<ul>
+<li>In the Heat Vulnerability Index data table, the Community District identifier is coded in the column (field) <code>borocd</code>.</li>
+<li>In the Tree Canopy and Street Tree Summary data for Community Districts, the Community District identifier is in the field <code>borocd</code>.</li>
+<li>In the Community District Boundaries dataset, the Community District identifier is in the field <code>BoroCD</code>.</li>
+</ul>
+<p>To create the tabular join to associate the Heat Vulnerability Index with the Community District boundaries:</p>
+<ul>
+<li>Go to the Layer Properties window for the Community District Boundaries.</li>
+<li>Click on the “Joins” tab on the left side of the window.</li>
+<li>Click the <img src="https://raw.githubusercontent.com/qgis/QGIS/b32e15500a51ca1d6f6d69869188db55467cf657/images/themes/default/mActionAdd.svg" class="img-fluid"> at the bottom.</li>
+<li>As the “Join layer” specify the Heat Vulnerability Index dataset.</li>
+<li>For the “Join field,” or column of data from the dataset being joined to the Community District Boundaries, specify the field that has the Community District identifiers (<code>borocd</code>)</li>
+<li>Specify the “Target field,” or the field that the Heat Vulnerability Index dataset is being joined to, as <code>BoroCD</code></li>
+<li>In this case, we may do not really need any fields other than the index itself, or the “Score” so we can check the box next to “Joined fields” and then check the box next to the desired field.</li>
+<li>Click “OK” in the Joins window and then in the Layer Properties to get back to the main QGIS window.</li>
+<li>Open the attribute table for the Community District Boundaries and see if it worked!</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./images/TabularJoin.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Setting up the join between the Heat Vulnerability Index data and the Community District Boundaries</figcaption>
+</figure>
+</div>
+<p>And when we look at the attribute table for the Community District Boundaries, we see a column with the Heat Vulnerability Index rank. (Some rows have no entry, which is expected as those rows are for unpopulated areas, such as large parks and airports.)</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./images/HVI_CD_Join_Result.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Attribute table of the Community District Boundaries layer after joining the Heat Vulnerability Data based on the Community District identifier</figcaption>
+</figure>
+</div>
+<section id="saving-tabular-join-results" class="level3" data-number="5.1.1">
+<h3 data-number="5.1.1" class="anchored" data-anchor-id="saving-tabular-join-results"><span class="header-section-number">5.1.1</span> Saving Tabular Join Results</h3>
+<p>Tabular joins accomplished through the above steps are only stored “in memory” until exported While they will be maintained when the project is saved, it is necessary to export the Community District Boundaries dataset as a new dataset to have the joined data more permanently available with that dataset.</p>
+<p>There are multiple ways to do tabular joins in QGIS; there is another workflow that can result in directly exporting the results to a new layer. You can find that as the <strong>Join Attributes by Field Value</strong> tool in the Processing Toolbox.</p>
+</section>
+<section id="try-it-yourself" class="level3" data-number="5.1.2">
+<h3 data-number="5.1.2" class="anchored" data-anchor-id="try-it-yourself"><span class="header-section-number">5.1.2</span> Try it yourself!</h3>
+<p><strong><em>As another tabular join, try to join the Tree Canopy and Street Tree summaries by Community District to the Community District Boundaries (with the Heat Vulnerability Index already joined). The dataset is large - consider only keeping one or two fields of interest from the Tree Canopy and Street Tree summary data.</em></strong></p>
+</section>
+</section>
+<section id="spatial-joins" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="spatial-joins"><span class="header-section-number">5.2</span> Spatial Joins</h2>
+<p>One of the most valuable aspects of GIS software is the ability to integrate different spatial datasets. In this case, for example, we can associate something like the Community District identifier with each green roof, or we can count the number of green roofs per Community District. Lets do both!</p>
+<section id="associating-broader-data-with-local-data" class="level3" data-number="5.2.1">
+<h3 data-number="5.2.1" class="anchored" data-anchor-id="associating-broader-data-with-local-data"><span class="header-section-number">5.2.1</span> Associating Broader data with Local Data</h3>
+<p>With the data available with this tutorial, we can do a spatial join to add information on Community District (e.g., which Community District) to the individual green roof points. We will use the <strong>Join Attributes by Location</strong> tool from the Processing Toolbox.</p>
+<ul>
+<li>Set the “Join to features in” to the green roof dataset</li>
+<li>For the “Features they (geometric predicate)” - this is basically the place to specify what kind of relationship we are looking for between the green roof points and the Community District boundaries. In this case, we want information based on where the green roof points <em>are within</em> the Community District boundaries.</li>
+<li>The only field of interest in this case to add onto the Green Roof Data is the Community District identifier (<code>BoroCD</code>).</li>
+<li>Set the “Join Type” to “Create separate feature for each matching feature (one-to-many)”
+<ul>
+<li>Basically this is to specify that should there be instances where the boundary dataset had overlapping polygons, if multiple polygons overlapped with a green roof point, the output would have multiple entries for that green roof point, each with the respective Community District (in this case) identifier. This is not an issue in this case, but could be with different datasets.</li>
+</ul></li>
+<li>In the screenshot below I have left it so the result is only written out as a “Temporary layer” but you could opt to use the icon to the left of that box to specify a destination file.</li>
+<li>Click “Run”!</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./images/CommDist_to_GreenRoofs_Setup.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Setting up a spatial join to get information about Community Districts associated with the Green Roof Centroids</figcaption>
+</figure>
+</div>
+<p>After this runs, you will see a new result in the Layers panel, “Joined layer,” with an associated dataset shown on the map canvas. The attribute table should include both the fields from the original Green Roof Centroid data, as well as the Community District identifier.</p>
+</section>
+<section id="summarizing-local-data-to-larger-areas" class="level3" data-number="5.2.2">
+<h3 data-number="5.2.2" class="anchored" data-anchor-id="summarizing-local-data-to-larger-areas"><span class="header-section-number">5.2.2</span> Summarizing Local data to Larger Areas</h3>
+<p>In many cases we may want to count the number of something within geographic units. In this case, we can count how many green roofs are in each Community DIstrict. To do this, we use the <strong>Join Attribute by Location (Summary)</strong> tool from the Processing Toolbox.</p>
+<ul>
+<li>Specify the “Join to features in” dataset as the Community District boundaries.</li>
+<li>Check the box for “contain” for “Where the features.”</li>
+<li>Set the “By comparing to” dataset as the Green Roof Centroid data (make sure to use the version reprojected to EPSG 2263).</li>
+<li>For “Fields to summarise” if you leave this out, you will end up with the desired summary statistics for all of these fields. Thus, I have selected only the unique identifier field, <code>fid</code>.</li>
+<li>For “Summaries to calculate” - if you leave blank, it will calculate all possible summaries. I selected “Count” as the metric of interest.</li>
+<li>Again, you can opt to write the output to a permanent file, or leave the default to create a temporary layer.</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./images/count_points_setup.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Setting up spatial join to count the number of Green Roofs, based on their centroids, within each Community District</figcaption>
+</figure>
+</div>
+<p>As with the previous operation, you should see a result of a “Joined layer” and see a new field reflecting the count of green roofs, as well as the fields originally in the Community District Boundaries dataset.</p>
+</section>
+</section>
+<section id="raster-polygon-overlays" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="raster-polygon-overlays"><span class="header-section-number">5.3</span> Raster-Polygon Overlays</h2>
+<p>In many cases it may be of interest to aggregate information from a raster data layer to a broader set of spatial boundaries. With the tutorial data, we calculate metrics from the Vegetation Density data by Community District - for example, to understand how the different Community Districts may have higher average values for vegetation density than others. To do this, we’ll use the <strong>Zonal Statistics</strong> tool from the Processing Toolbox, which calculates statistics of a raster layer for each feature of an overlapping polygon layer.</p>
+<ul>
+<li>Specify the Input layer as the COmmunity District Boundaries.</li>
+<li>Specify the Raster Layer as the Vegetation Density raster.</li>
+<li>We can specify a prefix for the new columns that will be created to help ease remembering what the new columns will have been created from (e.g., “PropVeg_”).</li>
+<li>We can specify a variety of statistics to calculate; in this case, I’ve specified that the the Mean and Median vegetation density values should be calculated for each Community District.</li>
+<li>Click “Run”!</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./images/ZonalStatsSetup.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Setting up a Zonal Statistics operation to calculate summary statistics from the Vegetation Density data layer for each Community Districts</figcaption>
+</figure>
+</div>
+<p>You should see a new layer titled “Zonal Statistics” with fields reflecting the Mean and Median values for the Vegetation Density layer.</p>
+</section>
+<section id="clipping" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="clipping"><span class="header-section-number">5.4</span> Clipping</h2>
+<p>In many cases, we have access to datasets that are much broader than our area of interest. For example, the Disadvantaged Communities Dataset is for the entirety of New York State, and the Census Tracts in it for NYC include the water areas of New York Harbor. Thus, this is a great example of a dataset that could be clipped to New York City.</p>
+<p>First - as a look of what the dataset should look like (this version has been reprojected to EPSG 2263).</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./images/DisadvantagedCommunities_StateWide.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">The full Disadvantaged Communities Dataset for New York State</figcaption>
+</figure>
+</div>
+<p>We can clip the dataset to the Community District Boundaries data layer using the “Clip” tool under the “Vector Overlay” heading in the Processing toolbox.</p>
+<p>The dialogue box for the Clip tool is fairly simple, only asking for the Input layer (data that we want to clip) and the Overlay layer, or the dataset that we want to clip to. After clicking “Run” you should end up with a new result layer, “Clipped” that looks like this:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./images/DisadvantagedCommunities_Clipped.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">The result of clipping the Disadvantaged Communities Dataset to the NYC Community District Boundaries</figcaption>
+</figure>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./projections.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Coordinate Reference Systems</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./cartography.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Making Maps</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">An Introduction to GIS using QGIS was written by Mike Treglia.</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">This book was built with <a href="https://quarto.org/">Quarto</a>.</div>
+  </div>
+</footer>
+
+
+
+</body></html>

@@ -137,6 +137,18 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Coordinate Reference Systems</span></span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./datawork_multilayer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Working with Multiple Datasets Together</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cartography.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Making Maps</span></span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -174,7 +186,8 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>The data used in this tutorial are all freely available, at least under creative commons licenses for non-commercial purposes if fully public domain. These are all focused on New York City.</p>
+<p>The data used in this tutorial are all freely available, at least under creative commons licenses for non-commercial purposes, if not fully public domain. These are all focused on New York City.</p>
+<p><strong><em><a href="./QGIS_Tutorial_Data.zip">Click Here to Download the Tutorial Data</a></em></strong></p>
 <section id="list-of-tutorial-data" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="list-of-tutorial-data"><span class="header-section-number">2.1</span> List of Tutorial Data</h2>
 <p>The data are all made available in a .zip file associated with the tutorial, and original sources are detailed below and each dataset is in a folder with the respective <strong><em>italicized &amp; bolded</em></strong> name as follows, and the data files have their names in <code>code-formatted text</code> (sometimes they are within their own <code>.zip</code> files):</p>
@@ -190,9 +203,9 @@ ul.task-list li input[type="checkbox"] {
 <li><em>Note, this dataset is a shapefile, which involves not only the <code>.shp.</code> file but a number of other, “sidecar” files. For the shapefile to work correctly, all of the other associated files must be kept with it, in the same folder.</em></li>
 </ul></li>
 </ul></li>
-<li><strong><em>NYC Heat Vulnerability Index by Community District (2023)</em></strong> - <code>NYC EH Data Portal - Heat vulnerability index (full table).csv</code>:
+<li><strong><em>NYC Heat Vulnerability Index by Community District (2018)</em></strong> - <code>NYC EH Data Portal - Heat vulnerability index (full table).csv</code>:
 <ul>
-<li>The NYC Department of Health and Mental Hygiene produces this dataset to represent the risk of community-level heat impacts, like deaths, due to extreme heat events. The data and additional information are available from the <a href="https://a816-dohbesp.nyc.gov/IndicatorPublic/data-explorer/weather-related-illness/?id=2191#display=summary">NYC Environment and Health Data Portal</a></li>
+<li>The NYC Department of Health and Mental Hygiene produces the Heat Vulnerability Index (HVI) dataset to reflect the risk of community-level heat impacts, like deaths, due to extreme heat events; the index ranges 1-5, and higher numbers reflect higher vulnerability. The data used in this tutorial are based on a 2018 version of the dataset; a newer version, recently released in 2023, is available from the <a href="https://a816-dohbesp.nyc.gov/IndicatorPublic/data-explorer/weather-related-illness/?id=2191#display=summary">NYC Environment and Health Data Portal</a> but with some limits in ability to join to other data at this point.</li>
 </ul></li>
 <li><strong><em>Tree Canopy and Street Tree Summary Data</em></strong> - <code>canopy_streettree_supp.gpkg</code>:
 <ul>
