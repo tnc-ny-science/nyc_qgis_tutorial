@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>An Introduction to GIS Using QGIS (version 3.34) and NYC Data - 1&nbsp; Installing QGIS and Plugins</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./tutorialdata.html" rel="next">
+<link href="./index.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./intro.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Installing QGIS and Plugins</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">An Introduction to GIS Using QGIS (version 3.34) and NYC Data</a> 
+        <div class="sidebar-tools-main">
+    <a href="./test" rel="" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-git"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Before you get started</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Installing QGIS and Plugins</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tutorialdata.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Tutorial Data</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./datawork_basic.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Loading and Visualizing Data</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./projections.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Coordinate Reference Systems</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#download-and-install" id="toc-download-and-install" class="nav-link active" data-scroll-target="#download-and-install"><span class="header-section-number">1.1</span> Download and Install</a>
+  <ul class="collapse">
+  <li><a href="#available-versions" id="toc-available-versions" class="nav-link" data-scroll-target="#available-versions"><span class="header-section-number">1.1.1</span> Available Versions</a></li>
+  </ul></li>
+  <li><a href="#starting-qgis-and-installing-plugins" id="toc-starting-qgis-and-installing-plugins" class="nav-link" data-scroll-target="#starting-qgis-and-installing-plugins"><span class="header-section-number">1.2</span> Starting QGIS and Installing Plugins</a>
+  <ul class="collapse">
+  <li><a href="#plugins" id="toc-plugins" class="nav-link" data-scroll-target="#plugins"><span class="header-section-number">1.2.1</span> Plugins</a></li>
+  </ul></li>
+  <li><a href="#basic-navigation-in-qgis" id="toc-basic-navigation-in-qgis" class="nav-link" data-scroll-target="#basic-navigation-in-qgis"><span class="header-section-number">1.3</span> Basic Navigation in QGIS</a>
+  <ul class="collapse">
+  <li><a href="#some-initial-setup" id="toc-some-initial-setup" class="nav-link" data-scroll-target="#some-initial-setup"><span class="header-section-number">1.3.1</span> Some initial setup</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-git"></i></div><div class="action-links"><p><a href="test/edit/main/intro.qmd" class="toc-action">Edit this page</a></p><p><a href="test/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Installing QGIS and Plugins</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="download-and-install" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="download-and-install"><span class="header-section-number">1.1</span> Download and Install</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://www.qgis.org/en/site/forusers/download.html" title="QGIS Download Page on Windows"><img src="./images/download_page.png" class="img-fluid figure-img"></a></p>
+<figcaption class="figure-caption">QGIS Download Page on Windows</figcaption>
+</figure>
+</div>
+<p>Downloads of QGIS for Windows and MacOS, as well as instructions for installing on other environments (linux, mobile) are available from the <a href="https://qgis.org/en/site/forusers/download.html">downloads page of the QGIS website</a>. When users go to the QGIS downloads page, they should generally see the download options relevant to their operating system. Windows and MacOS should be able to run the installer that downloads for the selected version and be able to get going (but see any notes on the download page); Linux users should review the instructions available for their specific Linux distribution.</p>
+<section id="available-versions" class="level3" data-number="1.1.1">
+<h3 data-number="1.1.1" class="anchored" data-anchor-id="available-versions"><span class="header-section-number">1.1.1</span> Available Versions</h3>
+<p>At the time of this writing, there are two versions of QGIS readily available, and this general model is how it tends to be set up:</p>
+<ul>
+<li>Latest Release, version 3.34, available from the Green Button - this may have some newer features added;</li>
+<li>Long Term Release (“LTR”), version 3.28, in the link directly below the green button - long term releases are maintained with bug-fixes, but not generally new features for 3 release cycles, to focus on stability.</li>
+</ul>
+<p>This tutorial was developed using 3.34, but either version should generally work. (Releases are denoted as x.y.z, where changes in ‘x’ denotes some potentially larger changes in the software, changes in ‘y’ denote additions of features and bug fixes, and changes in ‘z’ generally reflect bug-fixes.)</p>
+<p>Should users need older or development releases for any reason, they can access those through the “All Releases” tab on the webpage.</p>
+<p><em>Note: Windows users will also notice another download option for the OSGeo4W Installer, associated with a compass rose icon - this is an installer that supports more customization of the installation - advanced users may find this useful, for example to install development versions of the software or specific versions of the libraries QGIS depends on.</em></p>
+</section>
+</section>
+<section id="starting-qgis-and-installing-plugins" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="starting-qgis-and-installing-plugins"><span class="header-section-number">1.2</span> Starting QGIS and Installing Plugins</h2>
+<p>Once QGIS is installed, users should be able to go to their start menu, desktop, or similar to find it and use the typical approach for starting software on their operating system.</p>
+<section id="plugins" class="level3" data-number="1.2.1">
+<h3 data-number="1.2.1" class="anchored" data-anchor-id="plugins"><span class="header-section-number">1.2.1</span> Plugins</h3>
+<p>As with many software packages, QGIS supports plugins - or basically additional tools that can be written for the software to extend functionality. There are hundreds of plugins available, all freely available. To view and manage plugins, go to the <code>Plugins</code> menu at the top and navigate to <code>Manage and install plugins</code></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./images/ToolbarToPlugins.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Getting to Plugins</figcaption>
+</figure>
+</div>
+<p>The The following dialogue box will open, allowing users to browse through or search available plugins, and then by using the tabs on the left, seeing what plugins are installed and so-forth.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./images/PluginsWindow.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Plugins Window</figcaption>
+</figure>
+</div>
+<p>This tutorial makes use of the following plugins:</p>
+<ul>
+<li>Value Tool</li>
+<li>QuickMapServices</li>
+</ul>
+<p>To install the plugins, you can you can click the “Install Plugin” button that will appear when you select plugins from the list. Once plugins are instlalled, you can use the checkboxes that appear alongside those to enable or disable them; as plugins are installed, some may result in a new window being shown automatically, or a new “panel” available from the <code>View</code> menu; some may result in new icons appearing in the toolbar, a new menu being available at the top of the QGIS window.</p>
+</section>
+</section>
+<section id="basic-navigation-in-qgis" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="basic-navigation-in-qgis"><span class="header-section-number">1.3</span> Basic Navigation in QGIS</h2>
+<p>When you open QGIS, you should see a window like the following.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./images/MainQGISWindow_PluginsInstalled.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">First Look at the main QGIS Window (after Value Tool and QuickMapServices plugins have been installed)</figcaption>
+</figure>
+</div>
+<p>The labeled “sub-windows” you see, such as for the <em>Browser</em>, <em>Layers</em>, <em>Value Tool</em> and so forth are referred to as panels and the rows of icons across the top are toolbars. You can adjust what you are seeing in terms of panels and toolbars by going to the <code>View</code> menu a the top of the QGIS window, and selecting <code>Panels</code> or <code>Toolbars</code> appropriately (right-clicking on the toolbar also lets you see and turn on/off the panels and toolbars). Some icons may seem fairly intutive, such as to zoom in (<img src="https://raw.githubusercontent.com/qgis/QGIS/728e5967df5e34ab59657492921f638b138e5080/images/themes/default/mActionZoomIn.svg" class="img-fluid">) or zoom out (<img src="https://raw.githubusercontent.com/qgis/QGIS/728e5967df5e34ab59657492921f638b138e5080/images/themes/default/mActionZoomOut.svg" class="img-fluid">), but others may not be, so explore and don’t be afraid to try things out! It’s generally helpful to do this with smaller datasets loaded into QGIS to help iterate through the different tools and options more quickly.</p>
+<p><strong><em>I strongly encourage users to explore QGIS to familiarize themselves a bit with the software - hover your mouse over icons to see what they say, click on menu items at the top and browse around, selecting through some different menus and such. QGIS is rich in functionality, with multiple ways to do many things, so this can help you figure out what the easiest ways are for you to approach workflows.</em></strong></p>
+<section id="some-initial-setup" class="level3" data-number="1.3.1">
+<h3 data-number="1.3.1" class="anchored" data-anchor-id="some-initial-setup"><span class="header-section-number">1.3.1</span> Some initial setup</h3>
+<p>User may develop their own preferred ways of customizing things with any software. Here are two initial things I like to do for QGIS:</p>
+<ul>
+<li>Delineate “Favorites” in the Browser panel:
+<ul>
+<li>The Browser panel is a bit of a “one-stop-shop” to navigate around your local file system and load various types of layers.</li>
+<li>If you navigate around the directories from within the Browser panel (expand what you see by clicking on the right-facing arrow to the left of a given name), you can right-click folders and select them as “Favorites.” If you keep files with data you use in some general locations, this can help save time to get to them - particularly if the data are several folders deep or something.</li>
+</ul></li>
+<li>Make the “Processing Toolbox” panel visible:
+<ul>
+<li>In QGIS, there are many tools accessible through the toolbars and menus at the top. The panel for the Processing Toolbox serves as a bit of a directory of all of the different tools that exist in QGIS.</li>
+<li>You can make this panel active either by going through the <code>View</code> menu -&gt; <code>Panels</code>, or by clicking the <code>Processing</code> menu at the top and clicking on “Processing Toolbox.”
+<ul>
+<li>The screenshot below shows what this looks like (with the Processing Toolbox panel active). The Processing Toolbox has been scrolled down to show <a href="https://gdal.org/">GDAL</a> and <a href="https://grass.osgeo.org/">GRASS</a> - these are two software packages installed with QGIS and accessible through the Processing Toolbox. (GDAL is the core software in QGIS generally underlying import/export operations, and with additional functionality available for various processing steps). <img src="./images/ProcessingToolbox.png" class="img-fluid" alt="Getting to the Processing Toolbox"></li>
+</ul></li>
+</ul></li>
+</ul>
+<p>Depending on what you are doing at a given time, you can “x” out of individual panels and then re-instantiate them using <code>View</code> -&gt; <code>Panels</code> and you can resize them, pop them out, etc. by clicking on the top of each panel (at about the same area where the panel name is) and dragging it as desired.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./index.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Before you get started</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./tutorialdata.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Tutorial Data</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">An Introduction to GIS using QGIS was written by Mike Treglia.</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">This book was built with <a href="https://quarto.org/">Quarto</a>.</div>
+  </div>
+</footer>
+
+
+
+</body></html>

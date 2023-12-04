@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>An Introduction to GIS Using QGIS (version 3.34) and NYC Data - 3&nbsp; Loading and Visualizing Data</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./projections.html" rel="next">
+<link href="./tutorialdata.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./datawork_basic.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Loading and Visualizing Data</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">An Introduction to GIS Using QGIS (version 3.34) and NYC Data</a> 
+        <div class="sidebar-tools-main">
+    <a href="./test" rel="" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-git"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Before you get started</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Installing QGIS and Plugins</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tutorialdata.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Tutorial Data</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./datawork_basic.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Loading and Visualizing Data</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./projections.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Coordinate Reference Systems</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#importing-data-already-in-gis-formats" id="toc-importing-data-already-in-gis-formats" class="nav-link active" data-scroll-target="#importing-data-already-in-gis-formats"><span class="header-section-number">3.1</span> Importing Data Already in GIS Formats</a></li>
+  <li><a href="#importing-data-in-delimited-text-e.g.-csv-files" id="toc-importing-data-in-delimited-text-e.g.-csv-files" class="nav-link" data-scroll-target="#importing-data-in-delimited-text-e.g.-csv-files"><span class="header-section-number">3.2</span> Importing Data in Delimited Text (e.g., CSV) Files</a>
+  <ul class="collapse">
+  <li><a href="#ordering-and-grouping-layers" id="toc-ordering-and-grouping-layers" class="nav-link" data-scroll-target="#ordering-and-grouping-layers"><span class="header-section-number">3.2.1</span> Ordering and Grouping Layers</a></li>
+  <li><a href="#saving-a-project" id="toc-saving-a-project" class="nav-link" data-scroll-target="#saving-a-project"><span class="header-section-number">3.2.2</span> Saving a Project</a></li>
+  </ul></li>
+  <li><a href="#viewing-attribute-information-for-layers" id="toc-viewing-attribute-information-for-layers" class="nav-link" data-scroll-target="#viewing-attribute-information-for-layers"><span class="header-section-number">3.3</span> Viewing Attribute Information for Layers</a>
+  <ul class="collapse">
+  <li><a href="#attribute-tables" id="toc-attribute-tables" class="nav-link" data-scroll-target="#attribute-tables"><span class="header-section-number">3.3.1</span> Attribute Tables</a></li>
+  <li><a href="#identify-features" id="toc-identify-features" class="nav-link" data-scroll-target="#identify-features"><span class="header-section-number">3.3.2</span> Identify Features</a></li>
+  <li><a href="#value-tool-for-raster-data" id="toc-value-tool-for-raster-data" class="nav-link" data-scroll-target="#value-tool-for-raster-data"><span class="header-section-number">3.3.3</span> Value Tool (for Raster Data)</a></li>
+  </ul></li>
+  <li><a href="#basic-styling" id="toc-basic-styling" class="nav-link" data-scroll-target="#basic-styling"><span class="header-section-number">3.4</span> Basic Styling</a>
+  <ul class="collapse">
+  <li><a href="#vector-styling" id="toc-vector-styling" class="nav-link" data-scroll-target="#vector-styling"><span class="header-section-number">3.4.1</span> Vector Styling</a></li>
+  <li><a href="#raster-styling" id="toc-raster-styling" class="nav-link" data-scroll-target="#raster-styling"><span class="header-section-number">3.4.2</span> Raster Styling</a></li>
+  <li><a href="#basemaps" id="toc-basemaps" class="nav-link" data-scroll-target="#basemaps"><span class="header-section-number">3.4.3</span> Basemaps</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-git"></i></div><div class="action-links"><p><a href="test/edit/main/datawork_basic.qmd" class="toc-action">Edit this page</a></p><p><a href="test/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Loading and Visualizing Data</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="importing-data-already-in-gis-formats" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="importing-data-already-in-gis-formats"><span class="header-section-number">3.1</span> Importing Data Already in GIS Formats</h2>
+<p>There are a few different workflows that can be used to bring data into QGIS. Thankfully, for data already in GIS formats (e.g., shapefiles, geopackages, filegeodatabases, geotiffs), the steps can be as simple as <strong>drag and drop the file from your file explorer (e.g., Windows Explorer on Windows) into the QGIS Window</strong>. This generally involves having your file explorer open in the foreground over QGIS, and then clicking and holding on the desired file, and dragging it into the QGIS window, and releasing the click.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./images/draganddrop_data.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Example of loading data into QGIS by dragging and dropping a file</figcaption>
+</figure>
+</div>
+<p><strong>Try this with the Tree Canopy and Street Tree Summary Data, <code>canopystreettree_supp.gpkg</code> - just load the layer named <em>canopystreettree_supp_communitydist</em> for now</strong></p>
+<p>Similarly, users can navigate to location of desired files in the Browser panel and drag the files into the Layers panel or the main panels toward the middle of the QGIS window.</p>
+<p>*** Note - when you first load a vector dataset, the symbology will typically be the same for the entire layer and the color of the symbols will be randomly generated.***</p>
+<p>Some data formats, such as geopackage (<code>.gpkg</code>) and Esri file geodatabases (<code>.gdb</code>) can contain multiple datasets (spatial and non-spatial). When you go to load such data, where multiple datasets or layers are included through one of these drag and drop approaches, you will be prompted to select which data layers you want to include. The default is they are all included. Additionally, by expanding the <em>Options</em> at the bottom, you can choose to import the selected layers directly into a group, such that they are nested together in the Layers panel.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./images/multi_table_import.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Example of loading multi-layer file into QGIS</figcaption>
+</figure>
+</div>
+<p>Any tables of data in spatial formats without actual spatial data (e.g., non-spatial tables in a geopackage or file geodatabase) will simply appear as a table in QGIS. The same is the case for any data in non-spatial formats (e.g., text- or tab-delimited files).</p>
+</section>
+<section id="importing-data-in-delimited-text-e.g.-csv-files" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="importing-data-in-delimited-text-e.g.-csv-files"><span class="header-section-number">3.2</span> Importing Data in Delimited Text (e.g., CSV) Files</h2>
+<p>In many cases data are found in non-GIS data formats, such as <code>.csv</code> files, which can be read into spreadsheet software such as Excel. Spatial data in these files may be in the form of columns representing x and y coordinates (for points) or in a single column with the information stored in a “WKT” or “Well-Known Text” format, which follows a specific convention for spatial information (this can include data for (multi) points, lines, and polygons data).</p>
+<p>The process for importing these datasets is inherently not as simple as drag-and-drop, due to the fact that these files do not contain all of the information GIS software would need to display them correctly - some of it must be provided (or confirmed) by the user.</p>
+<p>As an example, the data associated with this tutorial include a CSV file with centroids of green roofs in NYC. One workflow for bringing this dataset into QGIS is as follows:</p>
+<ul>
+<li>Open the <strong><em>Data Source Manager</em></strong> (<img src="https://raw.githubusercontent.com/qgis/QGIS/728e5967df5e34ab59657492921f638b138e5080/images/themes/default/mActionDataSourceManager.svg" class="img-fluid"> - generally near the upper left in the toolbar; it is also available through CTRL+L on Windows and the <code>Layers</code> menu)</li>
+<li>Select the <em>Delimited Text</em> option on the left, use the “…” to the right of the File name box box at the top to navigate to the file.
+<ul>
+<li>In this case, QGIS should automatically identify that it is a CSV file, and that the data are point coordinates, with the x- and y-fields being stored in the data in columns <em>xcoord</em> and <em>ycoord</em>, respectively. Users should always confirm QGIS is identifying such information correct.</li>
+<li>QGIS does not know what the CRS, or Coordinate Reference System is for these data, so the “Geometry CRS” entry says may either make an assumption, that it is in the same CRS as other data brought into QGIS already, or it will indicate “invalid projection” and this needs to be specified by the user. <img src="./images/Load_CSV_PointData.png" class="img-fluid">
+<ul>
+<li>In either case for this dataset, you will need to indicate to QGIS the correct CRS. The previous dataset we have brought in by this point was in the <a href="https://epsg.io/2263">New York State Plane Long Island Zone, North American Datum of 1983, EPSG 2263</a>, in US Feet. However, this dataset has the coordinates in <a href="https://epsg.io/4326">Latitude/Longitude, in the WGS 84 Datum, EPSG 4326</a>. Click on the icon to the right of this box about Coordinate Systems <img src="https://raw.githubusercontent.com/qgis/QGIS/728e5967df5e34ab59657492921f638b138e5080/images/themes/default/mActionSetProjection.svg" class="img-fluid"></li>
+</ul></li>
+<li>Then in the window that appears, use the text filter to search for ‘4326’ - which is a shorthand reference, an “EPSG” code to the appropriate Coordinate Reference System these coordinates are in - (More about Coordinate Reference Systems in the next chapter, <a href="projections.html">Coordinate Reference Systems</a>.) Expand the content in the next box, to reflect what you see in the screenshot below, and hit the Okay button. <img src="./images/defining_crs.png" class="img-fluid"></li>
+<li>In the Data Source Manager, you should now be able to click the “Add” button (which would have been grayed out until the CRS is defined).
+<ul>
+<li>Before the dataset appears in the Layers panel, and the points appear in the main window of QGIS, you may see a window pop up asking you to select the desired operations to convert between coordinate systems. You can simply go with the default option and click “OK.”</li>
+</ul></li>
+</ul></li>
+<li>The data layer, layered on top of the other dataset we have brought in at this point should now appear something like the below (you’ll need to close out the Data Source Manager window). <img src="./images/greenroofs_firstload.png" class="img-fluid"></li>
+</ul>
+<p>** At this point, load in each of the other data layers (except for other layers available with the Tree Canopy and Street Tree Summary data - for that, the Community District layer is the only one you’ll need). For the remaining datasets you can drag and drop from your file explorer or by navigating to them in the Browser panel; if the data are in <code>.zip</code> folders, you can use those. <strong>The NYC Heat Vulnerability Index data is a tabular data, and will not show anything in the main QGIS window, but we will use it later on.* </strong></p>
+<section id="ordering-and-grouping-layers" class="level3" data-number="3.2.1">
+<h3 data-number="3.2.1" class="anchored" data-anchor-id="ordering-and-grouping-layers"><span class="header-section-number">3.2.1</span> Ordering and Grouping Layers</h3>
+<p>As the data layers were loaded, they generally should be listed in the Layers panel, in the order in which they were loaded (last layer at the bottom). This also reflects the ordering in the main map area, or the <em>canvas</em> - with the layers higher in the list being “on top” visually (i.e., the dataset of green roof points should be visible on top of everything else and you may not see some layers that are hidden behind or below others).</p>
+<p>To change which layers are visible, you can use the check-boxes, to make them appear or disappear in the map canvas, and you can re-order in the Layers panel by clicking and holding on the desired layer, and moving it up or down with respect to the other layers.</p>
+<p>Sometimes it is helpful to “group” layers - which has them nested under a title within the Layers panel, and then they, as a group, appear above or below the other layers based on the ordering within the panel. There will also be a check-box next to the group label, which you can use to turn on or off those layers together. To group/ungroup, select the desired layers by using <code>CTRL + Click</code> on each layer (or <code>SHIFT + Click</code> on the first and last layer if all consecutively ordered), right click, and select “Group Selected.”</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./images/grouping.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Grouping layers by selecting the desired layers in the Layers panel and right-clicking</figcaption>
+</figure>
+</div>
+<p>You can then move layers into and out of the group by clicking/dragging them around. You can also create a new group using the respective icon at the top of the Layers panel <img src="https://raw.githubusercontent.com/qgis/QGIS/728e5967df5e34ab59657492921f638b138e5080/images/themes/default/mActionAddGroup.svg" class="img-fluid"> and then drag layers in and out as desired.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./images/grouped_layers.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Example of grouped layers in the Layers panel</figcaption>
+</figure>
+</div>
+<p>Upon creating a group, you can rename it by right clicking on it and selecting “Rename Group.” Similarly, you can rename layers for use in the QGIS project by right clicking on them and selecting “Rename Layer.”</p>
+</section>
+<section id="saving-a-project" class="level3" data-number="3.2.2">
+<h3 data-number="3.2.2" class="anchored" data-anchor-id="saving-a-project"><span class="header-section-number">3.2.2</span> Saving a Project</h3>
+<p>At this point, we’ve done a few different steps, and as with so much work, would not want to have to redo things we’ve already done if anything happens - the computer or software crashes. To do this the first time, you can click the <img src="https://raw.githubusercontent.com/qgis/QGIS/728e5967df5e34ab59657492921f638b138e5080/images/themes/default/mActionFileSave.svg" class="img-fluid"> on the toolbar, navigate to the desired folder where you want to save the project, set a name, and click “Save.”</p>
+<p>The default format is a <code>.qgz</code> file, which is suitable for most use cases. If you are working on a shared drive with others, you may opt to use the <code>.qgs</code> format, which at least in my experience, works better if multiple people may be opening the project from different user accounts (e.g., on a server).</p>
+<p>As you work, you can click the <img src="https://raw.githubusercontent.com/qgis/QGIS/728e5967df5e34ab59657492921f638b138e5080/images/themes/default/mActionFileSave.svg" class="img-fluid"> or use <code>CTRL + S</code> on the keyboard to save as you go.</p>
+<p>You can also save an existing project into a new file by using the <code>Project</code> menu and selecting “Save As” or using <code>CTRL + SHIFT + S</code> on the keyboard.</p>
+</section>
+</section>
+<section id="viewing-attribute-information-for-layers" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="viewing-attribute-information-for-layers"><span class="header-section-number">3.3</span> Viewing Attribute Information for Layers</h2>
+<section id="attribute-tables" class="level3" data-number="3.3.1">
+<h3 data-number="3.3.1" class="anchored" data-anchor-id="attribute-tables"><span class="header-section-number">3.3.1</span> Attribute Tables</h3>
+<p>Data tables associated with vector datasets, and non-spatial tabular data can be viewed in QGIS by right-clicking on the layer and selecting “Open Attribute Table.” For large datasets, it will take some time to render, but generally for all of the datasets in this tutorial the attribute tables should appear fairly quickly. In some cases you may only want the attribute table to show a subset of the data, such as those visible in the map canvas, and you can set this using the dropdown menu at the bottom-left of the attribute table.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./images/attribute_table_show_desired_features.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Attribute table for green roofs data shown, with the dropdown menu expanded for limiting what is shown in the attribute table</figcaption>
+</figure>
+</div>
+</section>
+<section id="identify-features" class="level3" data-number="3.3.2">
+<h3 data-number="3.3.2" class="anchored" data-anchor-id="identify-features"><span class="header-section-number">3.3.2</span> Identify Features</h3>
+<p>To find out the attribute information for a given piece of a given dataset, you can use the Identify Features tool from the toolbar <img src="https://raw.githubusercontent.com/qgis/QGIS/728e5967df5e34ab59657492921f638b138e5080/images/themes/default/mActionIdentify.svg" class="img-fluid">. Once selected, you can either click on anything you see within a layer that is selected (e.g., appears in gray) in the Layers panel, or you can right-click in the map canvas and select the layer you want the information from. Once you select the item the <strong>Identify Results panel</strong> will appear with the respective information as shown below.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./images/IdentifyFeatures.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Identify Features panel with information for the green roof point, highlighted in red in the map canvas</figcaption>
+</figure>
+</div>
+<p>If you are zoomed out enough such that you select multiple features, you will be able to scroll down in the Identify Features panel and see the different entries available. You can also adjust some options for the Identify Features tool via the icons at the top of the panel.</p>
+</section>
+<section id="value-tool-for-raster-data" class="level3" data-number="3.3.3">
+<h3 data-number="3.3.3" class="anchored" data-anchor-id="value-tool-for-raster-data"><span class="header-section-number">3.3.3</span> Value Tool (for Raster Data)</h3>
+<p>While the Identify Features tool works for raster data, as well as vector data, the <em>Value Tool plugin</em> can make for somewhat easier inspection of raster data. With the <strong>Value Tool panel</strong> active (click the <img src="https://github.com/jorgealmerio/valuetool/raw/master/core/icon.svg" class="img-fluid">), as you move your mouse across the canvas, it will show the values for the pixels from a raster dataset (you may need to resize the columns to see the values). The image below shows an example with the raster data from this tutorial, with the “Decimals” box checked to only show two decimal places of information in the Value column.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./images/ValueToolExample.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Example of the Value Tool</figcaption>
+</figure>
+</div>
+<p>As you mouse over the raster you will see the values change.</p>
+</section>
+</section>
+<section id="basic-styling" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="basic-styling"><span class="header-section-number">3.4</span> Basic Styling</h2>
+<p>As you look at data with different kinds of information, you likely want to style it to your liking - either for making maps, or just getting some specific insights. To get to the style settings, you can either open the <strong>Layer Styling panel</strong> and select the desired layer in the Layers panel, or you can right click/double clock on any layer in the Layers panel, select “Properties” get to the <strong>Properties window</strong> and click on the relevant tabs on the left to get to styling menus for things like <em>Symbology</em> <em>Labels</em>. Users may find one or the other approach works better for them. Due to the different nature of vector and raster datasets, the styling menus are a bit different across these two</p>
+<section id="vector-styling" class="level3" data-number="3.4.1">
+<h3 data-number="3.4.1" class="anchored" data-anchor-id="vector-styling"><span class="header-section-number">3.4.1</span> Vector Styling</h3>
+<p>For vector data, the symbology options generally look along the lines of the below (for the Green Roof Centroids dataset).</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./images/point_symbology_1.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Symbology menu for a point layer (the Green Roof Centroids dataset in the Layer Properties Window</figcaption>
+</figure>
+</div>
+<p>Users can do a variety of things here such as:</p>
+<ul>
+<li>Click in the colored box or use the dropdown icon to the right of it to select a different color, adjust some different parameters (e.g., size and opacity);</li>
+<li>Select a different initial symbol type from the set towards the bottom of the window;</li>
+<li>Use the dropdown next to the word “Favorites” to access some different sets of symbol options or select the “All Symbols” option;</li>
+<li>In the upper area, click on “Simple Marker” and adjust the various options that become visible;</li>
+<li>Click the <img src="https://raw.githubusercontent.com/qgis/QGIS/728e5967df5e34ab59657492921f638b138e5080/images/themes/default/mActionAdd.svg" class="img-fluid"> towards the top to add multiple symbology types (e.g., for point data a second symbol could be added to be a bigger circle around the point);</li>
+<li>Use the dropdown menu from the top for options to color different features in a relatively automated way.</li>
+</ul>
+<p>There is <strong>A LOT</strong> to explore in terms of symbology. The Categorized or Graduated symbology options from the dropdown menu at the top is one of the most useful features in my work. As an example, with the Green Roof Centroids dataset, if I choose the “Graduated” symbology option, I can than select for the “Value” field any numeric variable; for this tutorial I’ll chose <code>gr_area</code> representing the area of the green roof surface in square feet. Leaving Symbol type as-is, I select a color ramp of Greens (light to dark greens), then leave the “Mode” for the styling as “Equal Count” (which results in about the same number of data points with each color along the gradient) and hit “Classify.”</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./images/point_symbology_2.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Example of Layer Properties - Symbology menu for the Green Roof Centroids Dataset, using a graduated symbology</figcaption>
+</figure>
+</div>
+<p>After adjusting the settings, clicking “OK” will apply the styling choices and close the window; clicking “Apply” will apply the styling choices but leave the window open for further adjustments.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./images/point_symbology_3.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">The Green Roof Centroids dataset with a graduated style applied</figcaption>
+</figure>
+</div>
+<p>One thing that is sometimes useful is <strong>having the border of symbols be the same color as the symbols themselves</strong>, and while one could go symbol by symbol along a set of specific styles, some built-in functionality makes this pretty easy in QGIS:</p>
+<ul>
+<li>In the main <em>Layer Properties - Symbology</em> menu, select the Simple Marker (for a Single Symbol styles) or click on the default symbol for a Graduated, Categorized, or similar style and then to the Simple Marker</li>
+<li>Click on the dropdown menu to the right of the “Stroke Color” then click “Edit” <img src="./images/stroke_color_edit.png" class="img-fluid"></li>
+<li>In in the box on the left type <code>@symbol_color</code> <img src="./images/symbology_expressionbuilder.png" class="img-fluid"></li>
+<li>click “OK” to apply and close the settings until you are back to the styles and then the map canvas, and you will see that what was a black ring around the points is now a ring the same color as the points themselves. <img src="./images/points_same_outline_as_fill.png" class="img-fluid"></li>
+</ul>
+<p>While the above examples are for styling points, similar approaches can be applied to lines and polygons as well.</p>
+<p>*** Tips:</p>
+<ul>
+<li>Need to apply the same style to multiple similar layers with the same field name and similar value ranges? You can right click on a layer, navigate to <code>Styles</code> -&gt; <code>Copy Style</code> -&gt; <code>All Style Categories</code> and then right click on another layer, navigate to <code>Styles</code> -&gt; <code>Paste Style</code> -&gt; <code>All Style Categories</code> to save some work.</li>
+</ul>
+<hr>
+</section>
+<section id="raster-styling" class="level3" data-number="3.4.2">
+<h3 data-number="3.4.2" class="anchored" data-anchor-id="raster-styling"><span class="header-section-number">3.4.2</span> Raster Styling</h3>
+<p>Due to the nature of raster data compared to vector data, adjusting the symbology is a bit different. In general, raster layers will default to having a grayscale symbology applied, with darker shades for the lower values and lighter for higher values, as you may have noticed for the <strong>Vegetation Density</strong> dataset. In general, we may want to adjust adjust the styling in various ways - the main thing to adjust is the <strong>Render Type</strong> - you’ll the following options:</p>
+<ul>
+<li>Multiband color - Generally for an image (a type of raster dataset), where, for example, there are different layers that represent red, green, and blue parts of the visible spectrum, and these layers can be merged visually to be what people might generally see (e.g., from an aerial image or satellite image).</li>
+<li>Paletted/Unique Values - Typically for a categorical dataset, such as land cover data, where each pixel value represents a different type.</li>
+<li>Singleband gray - The default for most raster datasets loaded in, where there is a single layer with values that can be represented along a continuous gradient (these can be integer or decimal, spanning positive and negative numbers).</li>
+<li>Singleband pseudocolor - An option to apply various color gradients (including user-defined ones) to a singleband dataset such as described in the previous option.</li>
+<li>Hillshade - Generally used to style elevation data in an aesthetically pleasing way that helps visualize the topography of the landscape.</li>
+<li>Contours - Can be used to draw “contour lines” as are often applied on topographic maps, to delineate specific breaks along the landscape. While this is often used with elevation data, it can be used with other continuous variables, such as on air quality, soil moisture, etc.</li>
+</ul>
+<p>In this example with the Vegetation Density raster, we will chose the <em>Singleband pseudocolor</em> option. If you expand the “Min / Max Value Settings” portion of the menu, you can see a number of options - the defaults are generally okay, but you can try adjusting these as desired. If working with a dataset that has a known range and the values for the color ramp do not meet the whole range, you may want to either set “User defined” values or change the “Accuracy” option from “Estimate (faster)” to “Actual (slower).” As with before, I’m adjusting the color ramp to be Greens, and then hitting “OK.”</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./images/raster_style_greens.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Example of Layer Properties - Symbology menu for the Vegetation Density raster dataset</figcaption>
+</figure>
+</div>
+<p>The result should look along the lines of the following:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./images/vegetation_density_greens.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Vegetation Density dataset with a green color gradient applied</figcaption>
+</figure>
+</div>
+<p>Users can save and load style for layers, both for vector and raster datasets. Included in the folder with the Vegetation Density data is a <code>.qml</code> file that contains styling information used for the main map in the <a href="https://medium.com/gage-nyc/looking-at-cooling-benefits-of-plants-through-nyc-vegetation-data-ccdeb33cbe17">blog post about that dataset</a> from the NYC Environmental Justice Alliance and the The Nature Conservancy’s NY Cities Program as part of the Just Nature NYC partnership. From the Layer Properties - Symbology menu, users can go to the “Style” button near the bottom, select “Load Style” and set the File to use as <code>vegmapping_style_qgis_tutorial.qml</code> and click “Load Style.”</p>
+<p><img src="./images/style_manager.png" class="img-fluid"></p>
+<p>From there, simply clicking “Apply” or “OK” should yield a map that looks like the below, where the transition from yellow to green happens at the 0.32 mark, which is the proportion of land area within a 200 meter radius area that needs to be covered by vegetation to start reducing air temperatures, based on research led by the NYC Department of Health and Mental Hygiene.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./images/vegetation_density_custom.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Vegetation Density dataset with a yellow-greens gradient applied based on a custom style loaded form a .qml file</figcaption>
+</figure>
+</div>
+</section>
+<section id="basemaps" class="level3" data-number="3.4.3">
+<h3 data-number="3.4.3" class="anchored" data-anchor-id="basemaps"><span class="header-section-number">3.4.3</span> Basemaps</h3>
+<p>In QGIS there are a few different ways to bring in basemaps. Users familiar with different web services (e.g., WMS/WMTS, ArcGIS REST services, etc.) can specify those through the Data Source Manager or the Browser panel, but more simply, for many use cases, users can use the <strong>QuickMapServices plugin</strong>. If it is not already up, you can click the <img src="https://raw.githubusercontent.com/nextgis/quickmapservices/be1a197ee008d9b2bdad6b75ed628c1bf54b8baf/images/mActionSearch.svg" class="img-fluid"> on the toolbar. From there, in the SearchQMS panel, users can search for various basemaps, such as from Google. Note, these are not necessarily licensed openly for broad reuse, but for visualizing datasets together, this can still be useful! Additionally, if you search for “nyc.gov” you can find basemaps, labels, and imagery specific to NYC from the City of New York, and acceptable for use in various ways under a Creative Commons license - see the <a href="https://maps.nyc.gov/tiles/">associated website</a>. To load a given basemap into QGIS, users can double-click an entry, or click the “Add” button; the layers get added to the bottom of the list of layers in the Layers panel.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./images/qms_nyc_basemap.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Example of the Green Roof Centroid data mapped over a basemap</figcaption>
+</figure>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./tutorialdata.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Tutorial Data</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./projections.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Coordinate Reference Systems</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">An Introduction to GIS using QGIS was written by Mike Treglia.</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">This book was built with <a href="https://quarto.org/">Quarto</a>.</div>
+  </div>
+</footer>
+
+
+
+</body></html>

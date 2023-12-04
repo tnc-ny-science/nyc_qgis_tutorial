@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>An Introduction to GIS Using QGIS (version 3.34) and NYC Data - 4&nbsp; Coordinate Reference Systems</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./datawork_basic.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./projections.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Coordinate Reference Systems</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">An Introduction to GIS Using QGIS (version 3.34) and NYC Data</a> 
+        <div class="sidebar-tools-main">
+    <a href="./test" rel="" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-git"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Before you get started</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Installing QGIS and Plugins</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tutorialdata.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Tutorial Data</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./datawork_basic.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Loading and Visualizing Data</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./projections.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Coordinate Reference Systems</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#checking-and-setting-project-and-layer-crs" id="toc-checking-and-setting-project-and-layer-crs" class="nav-link active" data-scroll-target="#checking-and-setting-project-and-layer-crs"><span class="header-section-number">4.1</span> Checking and Setting Project and Layer CRS</a>
+  <ul class="collapse">
+  <li><a href="#on-the-fly-projection" id="toc-on-the-fly-projection" class="nav-link" data-scroll-target="#on-the-fly-projection"><span class="header-section-number">4.1.1</span> On the Fly Projection</a></li>
+  </ul></li>
+  <li><a href="#transforming-to-a-different-crs---vector-data" id="toc-transforming-to-a-different-crs---vector-data" class="nav-link" data-scroll-target="#transforming-to-a-different-crs---vector-data"><span class="header-section-number">4.2</span> Transforming to a Different CRS - Vector Data</a></li>
+  <li><a href="#transforming-to-a-different-crs---raster-data-coming-soon" id="toc-transforming-to-a-different-crs---raster-data-coming-soon" class="nav-link" data-scroll-target="#transforming-to-a-different-crs---raster-data-coming-soon"><span class="header-section-number">4.3</span> Transforming to a Different CRS - Raster Data (Coming Soon!)</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-git"></i></div><div class="action-links"><p><a href="test/edit/main/projections.qmd" class="toc-action">Edit this page</a></p><p><a href="test/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span id="projections" class="quarto-section-identifier"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Coordinate Reference Systems</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p>Geographic datums, projections, and coordinate systems, jointly making up Coordinate Reference Systems (CRSs) are each big topics. This chapter is not even intended to be a primer about the topics themselves, but rather to help new QGIS users, or new GIS users more generally, get started in GIS operationally.</p>
+<p><strong><em>Note: In general, to do spatial data processing with two or more layers, the data layers need to be in the same CRS. If the data were not already available in the same CRS, they can be transformed to be in a common CRS as described in this section.</em></strong></p>
+<section id="checking-and-setting-project-and-layer-crs" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="checking-and-setting-project-and-layer-crs"><span class="header-section-number">4.1</span> Checking and Setting Project and Layer CRS</h2>
+<p>QGIS automatically reads Coordinate Reference System information, if available, from data layers. For shapefiles, it generally relies on the <code>.prj</code> sidecar file; for most other vector formats and raster data, it is generally embedded in the file. If you load data without built-in projection information (e.g., a Delimited Text File), it generally assumes a geographic coordinate system - either Latitude/Longitude in the WGS 84 datum (<a href="https://epsg.io/4326">EPSG 4326</a>) or the Project CRS, generally defined based on the first dataset loaded for a project unless otherwise specified by the user.</p>
+<p>To see what the Project CRS is, you can check the bottom-right corner of the main QGIS window and it will indicate next the <img src="https://raw.githubusercontent.com/qgis/QGIS/b32e15500a51ca1d6f6d69869188db55467cf657/images/themes/default/mIconProjectionEnabled.svg" class="img-fluid"> - you can click . Alternatively, go to the <code>Project</code> menu at the top of the QGIS window, select <code>Project Properties</code> and then select the CRS tab on the side. In the tutorial project I set up for myself in working through this tutorial, the Project CRS is NAD83 / New York Long Island (ftUS), with a shorthand code, the EPSG code, being 2263 (<a href="https://epsg.io/2263">EPSG 2263</a>). For the data in this tutorial, this is a good, locally-appropriate CRS.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./images/project_crs.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Example of looking at the Coordinate Reference System for a project, showing in this case, the Project CRS is NAD83 / New York Long Island (ftUS), EPSG 2263. Clicking on the area circled in Purple in the main QGIS window is a shortcut to get to the Project Properties - CRS window, shown here in the foreground.</figcaption>
+</figure>
+</div>
+<p>To check what CRS QGIS is using for a layer, the quickest way is to right-click on a layer, and hover over “Layer CRS” - the top item in what appears is the CRS that QGIS is using. From here, users can change the Project CRS to that of the layer, or change it. Note, “setting” the layer CRS is simply telling QGIS how to interpret the coordinates associated with the spatial data. If the data are not actually in the CRS being assigned, things will not appear to be in the right places.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./images/CheckLayerCRS.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Checking the layer CRS for the Green Roof Centroid data</figcaption>
+</figure>
+</div>
+<section id="on-the-fly-projection" class="level3" data-number="4.1.1">
+<h3 data-number="4.1.1" class="anchored" data-anchor-id="on-the-fly-projection"><span class="header-section-number">4.1.1</span> On the Fly Projection</h3>
+<p>QGIS and most other GIS software has what is called <em>On the Fly Projection</em> meaning that data do not need to be in the same CRS to be <em>viewed</em> together in the correct place. Basically, the necessary mathematical transformations are conducted by the software as needed to support visualizing all of the data together. To see what things might look like if this was not the case, you can go to the Project CRS information as shown above, and check the box at the top for “No CRS (or unknown/non-earth projection)” and then use the <img src="https://raw.githubusercontent.com/qgis/QGIS/b32e15500a51ca1d6f6d69869188db55467cf657/images/themes/default/mActionZoomFullExtent.svg" class="img-fluid"> in the toolbar to zoom to the full extent all of the layers at once. What you see will likely look <em>very</em> zoomed out, and you will see some data, quite small, and far apart from one-another, and maybe not see others because they are so small when plotted on common units, rather than re-projected on the fly so everything lines up.</p>
+<p>To get back to how things were, go back to the Project CRS, uncheck the box you just checked, select the appropriate CRS (EPSG 2263 in this case), and click “OK.”</p>
+</section>
+</section>
+<section id="transforming-to-a-different-crs---vector-data" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="transforming-to-a-different-crs---vector-data"><span class="header-section-number">4.2</span> Transforming to a Different CRS - Vector Data</h2>
+<p>Per the note at the beginning of this section, data layers should generally be in the same CRS for spatial processing operations (any way in which you are using the data together, spatially, beyond visualization). While EPSG 2263 is a generally suitable CRS for work in NYC, not all of the layers shared with this tutorial are in this CRS; in particular, the following are in different CRSs - Green Roof Centroids data (in Latitude/Longitude coordinates according to the WGS84 datum) and the Disadvantaged Communities Data (in UTM zone), thus they should be transformed to align with the CRS of the other layers.</p>
+<p>In QGIS transform vector to a different CRS, or “reprojecting” the data is generally done through an export operation, where the spatial data are transformed to in the process of the export. To start, right-click on a layer, navigate to “Export” and select “Save Features As.”</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./images/export_vector_1.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Navigating to vector layer export menu</figcaption>
+</figure>
+</div>
+<p>In the menu that pops up, you can chose from different formats; in this case I will select GeoPackage (<code>.gpkg</code> extension), an open standard format that can have multiple layers within a single file. For my tutorial project, I’ll create a single where I will save my outputs. You can set the destination file location and name for the GeoPackage file, and specify the layer name, which will default to the same name as the original. For work like this, I tend to adjust the layer name to reflect the important change, and I add “_epsg2263” to the end of the default. Then, most importantly, for CRS, you should be able to select <em>EPSG:2263</em> from the dropdown menu for CRS, but if you don’t, you can search for it and select it via the <img src="https://raw.githubusercontent.com/qgis/QGIS/b32e15500a51ca1d6f6d69869188db55467cf657/images/themes/default/mActionSetProjection.svg" class="img-fluid"> icon to the right of that. From there, generally the defaults for the export can be left as-is, leave the box checked at the bottom to “Add saved file to map” and click “OK.”</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./images/export_vector_2.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Sample dialogue box for exporting the Green Roof Centroid data while transforming the data to the desired CRS</figcaption>
+</figure>
+</div>
+<p><strong><em>Before proceeding in this tutorial, please reproject the Disadvantaged Communities dataset</em></strong></p>
+<p>Some notes for after export:</p>
+<ul>
+<li>When the layer is loaded upon export, the default name for GeoPackage layers can be rather long, thus you may wish to rename to a shorter but intuitive name;</li>
+<li>As data are exported and re-imported, the layer styling is lost. Thus, you may wish to right click on the original layer, navigate to copy the layer styles, and then paste them to the new, reprojected version;</li>
+<li>With the new version of the layer loaded, you may want to remove the old version - you can do this by clicking on it and then using the <img src="https://raw.githubusercontent.com/qgis/QGIS/b32e15500a51ca1d6f6d69869188db55467cf657/images/themes/default/mActionRemoveLayer.svg" class="img-fluid"> icon at the top of the Layers panel, or by right-clicking on the layer and selecting “Remove Layer.”</li>
+</ul>
+</section>
+<section id="transforming-to-a-different-crs---raster-data-coming-soon" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="transforming-to-a-different-crs---raster-data-coming-soon"><span class="header-section-number">4.3</span> Transforming to a Different CRS - Raster Data (Coming Soon!)</h2>
+<p>For the raster data in this tutorial, with the analyses described, reprojection of the raster is not necessary. However, for completeness, a walk-through of accomplishing this is pending.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./datawork_basic.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Loading and Visualizing Data</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">An Introduction to GIS using QGIS was written by Mike Treglia.</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">This book was built with <a href="https://quarto.org/">Quarto</a>.</div>
+  </div>
+</footer>
+
+
+
+</body></html>
