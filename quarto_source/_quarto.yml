@@ -1,0 +1,36 @@
+project:
+  type: book
+  output-dir: ../docs
+
+book:
+  title: "An Introduction to GIS Using QGIS (version 3.34) and NYC Data"
+  author: "Michael L Treglia, PhD <br>
+    The Nature Conservancy<br>
+    Lead Scientist, NY Cities Program"
+  reader-mode: false
+  date: "today"
+  page-footer:
+    left: |
+      An Introduction to GIS using QGIS was written by Mike Treglia.
+    right: |
+      This book was built with <a href="https://quarto.org/">Quarto</a>.
+  site-url: test
+  repo-url: test
+  repo-branch: main
+  repo-actions: [edit, issue]
+
+  chapters:
+    - index.qmd
+    - intro.qmd
+    - tutorialdata.qmd
+    - datawork_basic.qmd
+    - projections.qmd
+    - datawork_multilayer.qmd
+    - cartography.qmd
+
+
+format:
+  html:
+    theme: cosmo
+  pdf:
+    documentclass: scrreprt

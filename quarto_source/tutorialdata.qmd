@@ -1,0 +1,35 @@
+# Tutorial Data {#tutorial-data}
+
+The data used in this tutorial are all freely available, at least under creative commons licenses for non-commercial purposes, if not fully public domain. These are all focused on New York City. 
+
+***[Click Here to Download the Tutorial Data](./QGIS_Tutorial_Data.zip)***
+
+## List of Tutorial Data
+
+The data are all made available in a .zip file associated with the tutorial, and original sources are detailed below and each dataset is in a folder with the respective ***italicized & bolded*** name as follows, and the data files have their names in `code-formatted text` (sometimes they are within their own `.zip` files):
+
+-   ***Vegetation Density Across NYC*** - `nyc_propveg2017_200mbuffer_100ftgrid_nowater.tif`:
+    -   a raster dataset where the value of each pixel represents the proportion of land cover within a 200 meter radius that was vegetated based on 6" resolution land cover data for NYC representing 2017. Each pixel represents a 100 foot by 100 foot area on the ground. The data are available on a data repository, [Zenodo](https://zenodo.org/records/8370381).
+-   ***Community District Boundaries*** - `nycd.shp`:
+    -   a vector dataset of (multi)polygons representing the 59 Community Districts in NYC, each of which has an associated Community Board [NYC Department of City Planning Website](https://www.nyc.gov/site/planning/data-maps/open-data/districts-download-metadata.page). The version available here was the version already clipped to shorelines, and associated with NYC Department of City Planning release "23D."
+        -   *Note, this dataset is a shapefile, which involves not only the `.shp.` file but a number of other, "sidecar" files. For the shapefile to work correctly, all of the other associated files must be kept with it, in the same folder.*
+-   ***NYC Heat Vulnerability Index by Community District (2018)*** - `NYC EH Data Portal - Heat vulnerability index (full table).csv`:
+    -   The NYC Department of Health and Mental Hygiene produces the Heat Vulnerability Index (HVI) dataset to reflect the risk of community-level heat impacts, like deaths, due to extreme heat events; the index ranges 1-5, and higher numbers reflect higher vulnerability. The data used in this tutorial are based on a 2018 version of the dataset; a newer version, recently released in 2023, is available from the [NYC Environment and Health Data Portal](https://a816-dohbesp.nyc.gov/IndicatorPublic/data-explorer/weather-related-illness/?id=2191#display=summary) but with some limits in ability to join to other data at this point.
+-   ***Tree Canopy and Street Tree Summary Data*** - `canopy_streettree_supp.gpkg`:
+    -   This file includes data on tree canopy change (2010-2017) and street trees aggregated to political and administrative units of Boroughs, Community Districts, City Council Districts (2010), and Neighborhood Tabulation Areas (2010).
+-   ***Green Roof Data (Centroids) for NYC*** - `GreenRoofData2016_20180917.csv`:
+    -   Comma separated values file with the only spatial data for the green roofs being coordinates for the centroids in columns of *xcoord* and *ycoord*. The original dataset, along with more complete spatial data (green roof footprints) and full information about it is available on [Zenodo](https://zenodo.org/records/1469674).
+-   ***NYS Disadvantaged Communities 2023*** - `Final_DAC_Attributes.shp`:
+    -   Shapefile with a dataset developed by the New York State Climate Justice Working Group, identifying areas with "disadvantaged communities to ensure that frontline and otherwise underserved communities benefit from the state’s historic transition to cleaner, greener sources of energy, reduced pollution and cleaner air, and economic opportunities." The data, based on Census Tract polygons, along with documentation and an interactive map is available from [a New York State Government website](https://climate.ny.gov/Resources/Disadvantaged-Communities-Criteria).
+        -   *Note, this dataset is a shapefile, which involves not only the `.shp.` file but a number of other, "sidecar" files. For the shapefile to work correctly, all of the other associated files must be kept with it, in the same folder.*
+
+### A note about data in .zip files in QGIS
+
+In many cases, data are made available in a compressed, `.zip` format - this tends to particularly hold true when multiple files are shared together, either for functionality (e.g., with shapefiles and the associated sidecar files), or to ensure metadata stays with the associated data files. For many software packages, to even use the data in these files, they need to be "extracted" from the `.zip` format, and this functionality is generally included in a given operating system, third party tools (e.g., free and open source [7-zip](https://www.7-zip.org/)). And for working with the tutorial, it is recommended that you do unzip the main folder of data made available.
+
+However, it is possible to work with data in read-only mode (i.e., edits to datasets downloaded cannot be made) - and this is often a good use case for spatial data processing, in which edits files involves writing out new data files. Thus, for working with the tutorial data, you can opt to leave any data in `.zip` files as they are. If you find that viewing or working with the data is slow, you may try unzipping the files to see if it makes a difference, but some benefits I see of working with the `.zip` files are:
+
+-   Keeping the "raw" or "source" data for a project uneditable in the `.zip` format helps ensure you can always go back to that original dataset if needed.
+-   By not unzipping the data, you can reduce the storage space required for your project on your hard drive, since uncompressing may increase the size, and unless you delete the compressed files, there will be somewhat duplicate files on your drive. This can also help users keep data a bit better organized, simply because of the fewer folders and files.
+
+This functionality in QGIS to work with uncompressed data (among other things), made possible by the [Geospatial Data Abstraction Library (GDAL)](https://gdal.org), in implementation of [*virtual file systems*](https://gdal.org/user/virtual_file_systems.html).

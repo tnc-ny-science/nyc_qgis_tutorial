@@ -1,43 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>test/index.html</loc>
-    <lastmod>2023-12-04T05:59:03.433Z</lastmod>
-  </url>
-  <url>
     <loc>test/intro.html</loc>
-    <lastmod>2023-12-04T07:00:38.740Z</lastmod>
-  </url>
-  <url>
-    <loc>test/summary.html</loc>
-    <lastmod>2023-12-03T02:57:52.919Z</lastmod>
-  </url>
-  <url>
-    <loc>test/references.html</loc>
-    <lastmod>2023-12-03T04:51:12.363Z</lastmod>
-  </url>
-  <url>
-    <loc>test/data.html</loc>
-    <lastmod>2023-12-03T04:54:59.380Z</lastmod>
-  </url>
-  <url>
-    <loc>test/datawork_basic.html</loc>
-    <lastmod>2023-12-04T07:00:52.727Z</lastmod>
+    <lastmod>2023-12-05T14:38:15.610Z</lastmod>
   </url>
   <url>
     <loc>test/tutorialdata.html</loc>
-    <lastmod>2023-12-04T07:00:40.583Z</lastmod>
+    <lastmod>2023-12-05T14:38:21.034Z</lastmod>
+  </url>
+  <url>
+    <loc>test/datawork_basic.html</loc>
+    <lastmod>2023-12-05T14:38:21.041Z</lastmod>
   </url>
   <url>
     <loc>test/projections.html</loc>
-    <lastmod>2023-12-04T07:00:55.513Z</lastmod>
+    <lastmod>2023-12-05T14:38:21.049Z</lastmod>
   </url>
   <url>
     <loc>test/datawork_multilayer.html</loc>
-    <lastmod>2023-12-04T07:01:00.749Z</lastmod>
+    <lastmod>2023-12-05T14:38:21.055Z</lastmod>
   </url>
   <url>
     <loc>test/cartography.html</loc>
-    <lastmod>2023-12-04T07:01:03.332Z</lastmod>
+    <lastmod>2023-12-05T14:38:21.062Z</lastmod>
+  </url>
+  <url>
+    <loc>test/index.html</loc>
+    <lastmod>2023-12-05T14:44:08.718Z</lastmod>
   </url>
 </urlset>

@@ -1,0 +1,16 @@
+# Before you get started {.unnumbered}
+
+**Welcome!** New to GIS? Or new to using the powerful free and open source GIS software, [QGIS](https://www.qgis.org?)?  The intent of this material is to provide a provide a working knowledge the new GIS/QGIS user, so they may navigate the software for their own work, and further explore its capabilities. This tutorial is by no-means comprehensive. I suggest users browse and search the [QGIS documentation](https://qgis.org/en/docs/index.html) when they are stuck, and make use of relevant [support channels](https://qgis.org/en/site/forusers/support.html), and search around online for other tutorial materials, trainings, etc. Furthermore, examples of workflows given here are intended to be fairly heuristic, and serve as a starting point. For a given workflow or analysis, users should explore and experiment with different options, and research concepts further as needed.
+
+This website is set up as a tutorial for getting familiar with GIS using QGIS. It has evolved from materials originally developed in academic contexts (workshops, course materials) at Texas A&M University, The University of Tulsa, and the Pratt Institute, and is most recently converted from a PDF/Word Doc only to this interactive book format that uses on NYC-related environmental data amidst my work with [The Nature Conservancy](https://nature.org). I'm fortunate that my time spent developing and updating these materials has been covered by the institutions I have been based at along the way.
+
+For past versions of this tutorial with the associated data for those versions, go [here]().
+
+## Data for the tutorial
+
+A variety of operations are demonstrated in this tutorial using publicly-available data. To follow along with the material, please download the data package available [here]() and see the [Tutorial Data](#tutorial-data) chapter.
+
+
+
+## License
+This work is provided as-is, without warranty, and is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License. Full license details are available at: [http://creativecommons.org/licenses/by-nc-sa/4.0/legalcode](http://creativecommons.org/licenses/by-nc-sa/4.0/legalcode)
