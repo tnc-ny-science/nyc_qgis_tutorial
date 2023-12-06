@@ -14,8 +14,8 @@ book:
       An Introduction to GIS using QGIS was written by Mike Treglia.
     right: |
       This book was built with <a href="https://quarto.org/">Quarto</a>.
-  site-url: test
-  repo-url: test
+  site-url: https://tnc-ny-science.github.io/nyc_qgis_tutorial
+  repo-url: https://github.com/tnc-ny-science/nyc_qgis_tutorial
   repo-branch: main
   repo-actions: [edit, issue]
 

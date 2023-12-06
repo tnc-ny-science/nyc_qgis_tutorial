@@ -91,7 +91,7 @@ ul.task-list li input[type="checkbox"] {
     <div class="sidebar-title mb-0 py-0">
       <a href="./">An Introduction to GIS Using QGIS (version 3.34) and NYC Data</a> 
         <div class="sidebar-tools-main">
-    <a href="./test" rel="" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-git"></i></a>
+    <a href="https://github.com/tnc-ny-science/nyc_qgis_tutorial" rel="" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
 </div>
     </div>
       </div>
@@ -173,7 +173,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#basemaps" id="toc-basemaps" class="nav-link" data-scroll-target="#basemaps"><span class="header-section-number">3.4.3</span> Basemaps</a></li>
   </ul></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-git"></i></div><div class="action-links"><p><a href="test/edit/main/datawork_basic.qmd" class="toc-action">Edit this page</a></p><p><a href="test/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/tnc-ny-science/nyc_qgis_tutorial/edit/main/datawork_basic.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/tnc-ny-science/nyc_qgis_tutorial/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -230,7 +230,7 @@ ul.task-list li input[type="checkbox"] {
 <ul>
 <li>In either case for this dataset, you will need to indicate to QGIS the correct CRS. The previous dataset we have brought in by this point was in the <a href="https://epsg.io/2263">New York State Plane Long Island Zone, North American Datum of 1983, EPSG 2263</a>, in US Feet. However, this dataset has the coordinates in <a href="https://epsg.io/4326">Latitude/Longitude, in the WGS 84 Datum, EPSG 4326</a>. Click on the icon to the right of this box about Coordinate Systems <img src="https://raw.githubusercontent.com/qgis/QGIS/728e5967df5e34ab59657492921f638b138e5080/images/themes/default/mActionSetProjection.svg" class="img-fluid"></li>
 </ul></li>
-<li>Then in the window that appears, use the text filter to search for ‘4326’ - which is a shorthand reference, an “EPSG” code to the appropriate Coordinate Reference System these coordinates are in - (More about Coordinate Reference Systems in the next chapter, <a href="projections.html">Coordinate Reference Systems</a>.) Expand the content in the next box, to reflect what you see in the screenshot below, and hit the Okay button. <img src="./images/defining_crs.png" class="img-fluid"></li>
+<li>Then in the window that appears, use the text filter to search for ‘4326’ - which is a shorthand reference, an “EPSG” code to the appropriate Coordinate Reference System these coordinates are in - (More about Coordinate Reference Systems in the next chapter, <a href="#projections">Coordinate Reference Systems</a>.) Expand the content in the next box, to reflect what you see in the screenshot below, and hit the Okay button. <img src="./images/defining_crs.png" class="img-fluid"></li>
 <li>In the Data Source Manager, you should now be able to click the “Add” button (which would have been grayed out until the CRS is defined).
 <ul>
 <li>Before the dataset appears in the Layers panel, and the points appear in the main window of QGIS, you may see a window pop up asking you to select the desired operations to convert between coordinate systems. You can simply go with the default option and click “OK.”</li>

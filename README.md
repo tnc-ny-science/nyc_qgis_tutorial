@@ -1,1 +1,1 @@
-# nyc_qgis_tutorial
+# NYC QGIS Tutorial

@@ -1,1 +1,1 @@
-Sitemap: test/sitemap.xml
+Sitemap: https://tnc-ny-science.github.io/nyc_qgis_tutorial/sitemap.xml
